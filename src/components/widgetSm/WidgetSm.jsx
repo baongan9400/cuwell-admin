@@ -14,7 +14,7 @@ export default function WidgetSm() {
           />
           <div className="widgetSmUser">
             <span className="widgetSmUsername">Anna Keller</span>
-            <span className="widgetSmUserTitle">Software Engineer</span>
+            <span className="widgetSmUserTitle">City: Da Nang</span>
           </div>
           <button className="widgetSmButton">
             <Visibility className="widgetSmIcon" />
@@ -29,7 +29,7 @@ export default function WidgetSm() {
           />
           <div className="widgetSmUser">
             <span className="widgetSmUsername">Anna Keller</span>
-            <span className="widgetSmUserTitle">Software Engineer</span>
+            <span className="widgetSmUserTitle">City: Da Nang</span>
           </div>
           <button className="widgetSmButton">
             <Visibility className="widgetSmIcon" />
@@ -44,7 +44,7 @@ export default function WidgetSm() {
           />
           <div className="widgetSmUser">
             <span className="widgetSmUsername">Anna Keller</span>
-            <span className="widgetSmUserTitle">Software Engineer</span>
+            <span className="widgetSmUserTitle">City: Da Nang</span>
           </div>
           <button className="widgetSmButton">
             <Visibility className="widgetSmIcon" />
@@ -59,7 +59,7 @@ export default function WidgetSm() {
           />
           <div className="widgetSmUser">
             <span className="widgetSmUsername">Anna Keller</span>
-            <span className="widgetSmUserTitle">Software Engineer</span>
+            <span className="widgetSmUserTitle">City: Da Nang</span>
           </div>
           <button className="widgetSmButton">
             <Visibility className="widgetSmIcon" />
@@ -74,7 +74,7 @@ export default function WidgetSm() {
           />
           <div className="widgetSmUser">
             <span className="widgetSmUsername">Anna Keller</span>
-            <span className="widgetSmUserTitle">Software Engineer</span>
+            <span className="widgetSmUserTitle">City: Da Nang</span>
           </div>
           <button className="widgetSmButton">
             <Visibility className="widgetSmIcon" />
