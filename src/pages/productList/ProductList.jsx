@@ -4,6 +4,7 @@ import { DeleteOutline } from "@material-ui/icons";
 import { productRows } from "../../dummyData";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import MainLayout from "../../Layouts/MainLayout";
 
 export default function ProductList() {
   const [data, setData] = useState(productRows);
@@ -59,14 +60,16 @@ export default function ProductList() {
   ];
 
   return (
-    <div className="productList">
-      <DataGrid
-        rows={data}
-        disableSelectionOnClick
-        columns={columns}
-        pageSize={8}
-        checkboxSelection
-      />
-    </div>
+    <MainLayout>
+      <div className="productList">
+        <DataGrid
+          rows={data}
+          disableSelectionOnClick
+          columns={columns}
+          pageSize={8}
+          checkboxSelection
+        />
+      </div>
+    </MainLayout>
   );
 }
