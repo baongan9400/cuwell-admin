@@ -8,8 +8,9 @@ export default function Categories() {
     <div className="categories">
       <div className="homeWidgets">
         <FormCreateCategory />
-        <BarChartCustom />
+        <WidgetLg />
       </div>
+      <BarChartCustom />
     </div>
   );
 }
