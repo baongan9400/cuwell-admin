@@ -1,25 +1,19 @@
-import Chart from "../../components/chart/Chart";
 import "./categories.css";
-import { userData } from "../../dummyData";
-import WidgetSm from "../../components/widgetSm/WidgetSm";
 import WidgetLg from "../../components/widgetLg/WidgetLg";
+import BarChartCustom from "../../components/barchart/BarChart";
+import FormCreateCategory from "../../components/createCategoryForm/FormCreateCategory";
 import MainLayout from "../../Layouts/MainLayout";
 
 export default function Categories() {
   return (
     <MainLayout>
-      <div className="categories">
-        <div className="homeWidgets">
-          <WidgetSm />
-          <WidgetLg />
-        </div>
-        <Chart
-          data={userData}
-          title="User Analytics"
-          grid
-          dataKey="Active User"
-        />
+       <div className="categories">
+      <div className="homeWidgets">
+        <FormCreateCategory />
+        <WidgetLg />
       </div>
+      <BarChartCustom />
+    </div>
     </MainLayout>
   );
 }
