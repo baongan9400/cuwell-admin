@@ -14,7 +14,7 @@ import {
   Report,
   CategoryOutlined,
 } from "@material-ui/icons";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default function Sidebar() {
   return (
@@ -23,12 +23,17 @@ export default function Sidebar() {
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Dashboard</h3>
           <ul className="sidebarList">
-            <Link to="/" className="link">
-              <li className="sidebarListItem active">
+            <li className="">
+              <NavLink
+                exact
+                activeClassName="sidebarListItemActived"
+                to="/"
+                className="link sidebarListItem"
+              >
                 <LineStyle className="sidebarIcon" />
                 Home
-              </li>
-            </Link>
+              </NavLink>
+            </li>
             <li className="sidebarListItem">
               <Timeline className="sidebarIcon" />
               Analytics
@@ -42,34 +47,57 @@ export default function Sidebar() {
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Quick Menu</h3>
           <ul className="sidebarList">
-            <Link to="/users" className="link">
-              <li className="sidebarListItem">
+            <li className="">
+              <NavLink
+                exact
+                activeClassName="sidebarListItemActived"
+                to="/users"
+                className="link sidebarListItem"
+              >
                 <PermIdentity className="sidebarIcon" />
                 Users
-              </li>
-            </Link>
-            <Link to="/products" className="link">
-              <li className="sidebarListItem">
+              </NavLink>
+            </li>
+
+            <li className="">
+              <NavLink
+                exact
+                activeClassName="sidebarListItemActived"
+                to="/products"
+                className="link sidebarListItem"
+              >
                 <Storefront className="sidebarIcon" />
                 Products
-              </li>
-            </Link>
+              </NavLink>
+            </li>
             <li className="sidebarListItem">
               <AttachMoney className="sidebarIcon" />
               Transactions
             </li>
-            <Link to="/reports" className="link">
-              <li className="sidebarListItem">
+
+            <li className="">
+              <NavLink
+                exact
+                activeClassName="sidebarListItemActived"
+                to="/reports"
+                className="link sidebarListItem"
+              >
                 <BarChart className="sidebarIcon" />
                 Reports
-              </li>
-            </Link>
-            <Link to="/categories" className="link">
-              <li className="sidebarListItem">
+              </NavLink>
+            </li>
+
+            <li className="">
+              <NavLink
+                exact
+                activeClassName="sidebarListItemActived"
+                to="/categories"
+                className="link sidebarListItem"
+              >
                 <CategoryOutlined className="sidebarIcon" />
                 Categories
-              </li>
-            </Link>
+              </NavLink>
+            </li>
           </ul>
         </div>
         <div className="sidebarMenu">
