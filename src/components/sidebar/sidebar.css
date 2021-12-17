@@ -35,7 +35,11 @@
 
 .sidebarListItem.active,
 .sidebarListItem:hover {
-  background-color: rgb(240, 240, 255);
+  background-color: #ccf2f493;
+}
+
+.sidebarListItemActived {
+  background-color: #ccf2f4;
 }
 
 .sidebarIcon{
