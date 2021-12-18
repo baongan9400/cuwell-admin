@@ -1,0 +1,93 @@
+.categoryItem {
+  flex: 2;
+  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  padding: 20px;
+}
+
+.categoryItemTitle {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.categoryItemTable {
+  width: 100%;
+  border-spacing: 20px;
+  height: 240px;
+  overflow-y: scroll;
+  display: inline-block;
+}
+
+.categoryItemTh {
+  text-align: left;
+}
+
+.categoryItemUser {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+.categoryItemImg {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.categoryItemDate,
+.categoryItemAmount {
+  font-weight: 300;
+}
+
+.categoryItemButton {
+  padding: 5px 7px;
+  border: none;
+  border-radius: 10px;
+}
+
+.categoryItemButton.Approved {
+  background-color: #e5faf2;
+  color: #3bb077;
+}
+.categoryItemButton.Declined {
+  background-color: #fff0f1;
+  color: #d95087;
+}
+.categoryItemButton.Pending {
+  background-color: #ebf1fe;
+  color: #2a7ade;
+}
+.post {
+  display: flex;
+  width: 600px;
+}
+
+.post .left-col {
+  width: 75px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 1.5rem;
+}
+
+.post .avatar {
+  width: 55px;
+  height: 55px;
+  background-color: #eaeaea;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.post .avatar-skeleton {
+  width: 100%;
+  height: 100%;
+  line-height: 1;
+}
+.post .right-col {
+  flex: 1;
+}

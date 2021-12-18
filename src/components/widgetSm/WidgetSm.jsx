@@ -1,5 +1,5 @@
 import "./widgetSm.css";
-import { Visibility } from "@material-ui/icons";
+import { Visibility } from "@mui/icons-material";
 
 export default function WidgetSm() {
   return (
@@ -13,7 +13,7 @@ export default function WidgetSm() {
             className="widgetSmImg"
           />
           <div className="widgetSmUser">
-            <span className="widgetSmUsername">Anna Keller</span>
+            <span className="widgetSmUsername">Ngan Dang</span>
             <span className="widgetSmUserTitle">City: Da Nang</span>
           </div>
           <button className="widgetSmButton">
@@ -28,7 +28,7 @@ export default function WidgetSm() {
             className="widgetSmImg"
           />
           <div className="widgetSmUser">
-            <span className="widgetSmUsername">Anna Keller</span>
+            <span className="widgetSmUsername">Anh Tu</span>
             <span className="widgetSmUserTitle">City: Da Nang</span>
           </div>
           <button className="widgetSmButton">
@@ -43,7 +43,7 @@ export default function WidgetSm() {
             className="widgetSmImg"
           />
           <div className="widgetSmUser">
-            <span className="widgetSmUsername">Anna Keller</span>
+            <span className="widgetSmUsername">Do Trung HIeu</span>
             <span className="widgetSmUserTitle">City: Da Nang</span>
           </div>
           <button className="widgetSmButton">
@@ -58,7 +58,7 @@ export default function WidgetSm() {
             className="widgetSmImg"
           />
           <div className="widgetSmUser">
-            <span className="widgetSmUsername">Anna Keller</span>
+            <span className="widgetSmUsername">Taylor Swift</span>
             <span className="widgetSmUserTitle">City: Da Nang</span>
           </div>
           <button className="widgetSmButton">

@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import Report from "../components/report";
+import Report from "../pages/report";
 import { checkJWT } from "../helpers/checkJWT";
 import Categories from "../pages/categories/Categories";
 import Home from "../pages/home/Home";
@@ -67,14 +67,12 @@ export const RouteWithSubRoutes = (route) => {
       path={route.path}
       exact={route.exact}
       isPrivate={route.isPrivate}
-      render={
-        (props) => (
-          // checkJWT() === false ? (
-          //   <Redirect to="/login" />
-          // ) : (
+      render={(props) =>
+        checkJWT() === false ? (
+          <Redirect to="/login" />
+        ) : (
           <route.component {...props} />
         )
-        // )
       }
     />
   );

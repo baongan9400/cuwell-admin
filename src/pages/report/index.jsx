@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 
 import "./Report.css";
 import DialogReport from "./DialogReport";
+import MainLayout from "Layouts/MainLayout";
 // import adminApi from "../../../api/management/adminApi";
 
 const useStyles = makeStyles((theme) => ({
@@ -139,7 +140,7 @@ function Report(props) {
       description: "san pham gia",
       user: {
         id: 81,
-        name: "Tran Van Si",
+        name: "Phan Anh Tu",
         email: "sitvdut@gmail.com",
         phone: "0796236387",
         address: {
@@ -278,20 +279,26 @@ function Report(props) {
   };
 
   return (
-    <div className="reportList">
-      <List className={classes.inlineReport}>
-        <h4 className="report-title">Report violations: </h4>
-        <ReportList
-          reports={reports}
-          report={report}
-          classes={classes}
-          onClickOpen={onClickOpen}
-          getReport={getReport}
-          onClickClose={onClickClose}
-        />
-        <DialogReport open={open} report={report} onClickClose={onClickClose} />
-      </List>
-    </div>
+    <MainLayout>
+      <div className="reportList">
+        <List className={classes.inlineReport}>
+          <h4 className="report-title">Report violations: </h4>
+          <ReportList
+            reports={reports}
+            report={report}
+            classes={classes}
+            onClickOpen={onClickOpen}
+            getReport={getReport}
+            onClickClose={onClickClose}
+          />
+          <DialogReport
+            open={open}
+            report={report}
+            onClickClose={onClickClose}
+          />
+        </List>
+      </div>
+    </MainLayout>
   );
 }
 

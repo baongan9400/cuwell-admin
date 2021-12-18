@@ -11,55 +11,63 @@ import {
 
 const data = [
   {
-    name: "Category A",
-    products: 2400,
+    category: 3,
+    category__name: "clothes and accessories",
+    number_of_posts: 14,
   },
   {
-    name: "Category B",
-    products: 1398,
+    category: 4,
+    category__name: "Books and Stationery",
+    number_of_posts: 7,
   },
   {
-    name: "Category C",
-    products: 9800,
+    category: 2,
+    category__name: "electronic",
+    number_of_posts: 6,
   },
   {
-    name: "Category D",
-    products: 3908,
+    category: 5,
+    category__name: "Plants",
+    number_of_posts: 4,
   },
   {
-    name: "Category E",
-    products: 4800,
-  },
-  {
-    name: "Category F",
-    products: 3800,
-  },
-  {
-    name: "Category G",
-    products: 4300,
+    category: 6,
+    category__name: "Phones",
+    number_of_posts: 3,
   },
 ];
 
 const BarChartCustom = () => {
   return (
     <BarChart
-      width={700}
+      width={1000}
       height={400}
       data={data}
+      align="center"
       margin={{
         top: 5,
         right: 30,
-        left: 20,
+        left: 50,
         bottom: 5,
       }}
       barSize={20}
     >
-      <XAxis dataKey="name" scale="point" padding={{ left: 10, right: 10 }} />
+      <XAxis
+        dataKey="category__name"
+        scale="point"
+        padding={{ left: 10, right: 10 }}
+        style={{ textTransform: "capitalize" }}
+      />
       <YAxis />
       <Tooltip />
       <Legend />
       <CartesianGrid strokeDasharray="3 3" />
-      <Bar dataKey="products" fill="#8884d8" background={{ fill: "#eee" }} />
+      <Bar
+        dataKey="number_of_posts"
+        fill="#8884d8"
+        background={{ fill: "#eee" }}
+        label="Posts"
+      />
     </BarChart>
   );
 };

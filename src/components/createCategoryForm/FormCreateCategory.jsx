@@ -18,7 +18,13 @@ const FormCreateCategory = () => {
           control={control}
           render={({ field: { onChange, value } }) => (
             <Box sx={{ m: 3, bgcolor: "background.paper" }}>
-              <TextField onChange={onChange} value={value} label={"Name"} />
+              <TextField
+                onChange={onChange}
+                value={value}
+                label={"Name"}
+                fullWidth
+                variant="filled"
+              />
             </Box>
           )}
         />
