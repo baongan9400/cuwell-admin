@@ -9,6 +9,8 @@ import Product from "../pages/product/Product";
 import ProductList from "../pages/productList/ProductList";
 import User from "../pages/user/User";
 import UserList from "../pages/userList/UserList";
+import NotFound from "pages/404/403";
+import ErrorPage from "pages/404/ErrorPage";
 
 export const routeConfig = [
   {
@@ -59,6 +61,13 @@ export const routeConfig = [
     exact: true,
     component: Categories,
   },
+  {
+    path: `/403`,
+    isPrivate: true,
+    exact: true,
+    component: NotFound,
+  },
+  { path: "*", component: ErrorPage },
 ];
 
 export const RouteWithSubRoutes = (route) => {

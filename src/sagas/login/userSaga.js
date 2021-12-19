@@ -4,21 +4,25 @@ import * as types from "redux/constants";
 import * as actions from "redux/actions/login/authAction";
 import jwt_decode from "jwt-decode";
 import { pushToast } from "components/Toast";
+import { checkRole } from "helpers/checkJWT";
 
 function* login({ email, password }) {
   try {
     const data = yield call(authenApi.login, { email, password });
     if (data && data.payload) {
-      localStorage.setItem("token", JSON.stringify(data.payload));
-      const token = localStorage.getItem("token");
-      //decode token
-      if (token) {
-        var decoded = jwt_decode(token);
-        var userId = decoded.user.id;
-        const userData = yield call(authenApi.getUserDetail, userId);
-        yield put(actions.userLoggedIn(userData.payload, userId));
-        localStorage.setItem("user", JSON.stringify(userData.payload));
-        window.location.href = "/";
+      const token = JSON.stringify(data.payload);
+      if (token && checkRole(token)) {
+        localStorage.setItem("token", token);
+        if (token) {
+          var decoded = jwt_decode(token);
+          var userId = decoded.user.id;
+          const userData = yield call(authenApi.getUserDetail, userId);
+          yield put(actions.userLoggedIn(userData.payload, userId));
+          localStorage.setItem("user", JSON.stringify(userData.payload));
+          window.location.href = "/";
+        }
+      } else {
+        yield put(actions.checkError());
       }
     }
   } catch (e) {

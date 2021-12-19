@@ -2,6 +2,7 @@ import "./App.css";
 import { Redirect, Switch, BrowserRouter, Route } from "react-router-dom";
 import { routeConfig, RouteWithSubRoutes } from "./router/config";
 import Login from "./pages/login/SignIn";
+import Toast from "components/Toast";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Redirect from="*" to="/" />
         </Switch>
       </BrowserRouter>
+      <Toast />
     </div>
   );
 }
