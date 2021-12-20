@@ -3,11 +3,33 @@ import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@mui/icons-material";
 import { productRows } from "../../dummyData";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MainLayout from "../../Layouts/MainLayout";
-
+import postApi from "api/post"
 export default function ProductList() {
-  const [data, setData] = useState(productRows);
+  const pageSize = 8;
+  const [data, setData] = useState([]);
+  const params = {
+    search: "",
+    category: "",
+    page: 1,
+    page_size: pageSize,
+  };
+  useEffect(() => {
+    fetchListPost(params);
+  }, []);
+
+  const fetchListPost = async (params) => {
+    try {
+      const response = await postApi.getSearchPostData(params);
+      if (response) {
+        setData(response.results);
+      }
+    } catch (error) {
+      console.log("failed to fetch list user: ", error);
+      setData(productRows);
+    }
+  };
 
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
@@ -66,7 +88,7 @@ export default function ProductList() {
           rows={data}
           disableSelectionOnClick
           columns={columns}
-          pageSize={8}
+          pageSize={pageSize}
           checkboxSelection
         />
       </div>

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import MainLayout from "../../Layouts/MainLayout";
 import userApi from "../../api/user";
+import Rating from '@mui/material/Rating';
 
 export default function UserList() {
   const [data, setData] = useState([]);
@@ -16,8 +17,14 @@ export default function UserList() {
   const fetchListUser = async () => {
     try {
       const response = await userApi.getAllUsers();
-      console.log(response);
-      if (response) setData(response);
+      if (response) {
+        response.payload.map((item) => {
+          item['id'] = item.userId
+          item['city'] = item.address.city
+          return item;
+       })
+        setData(response.payload);
+      }
     } catch (error) {
       console.log("failed to fetch list user: ", error);
 
@@ -31,30 +38,35 @@ export default function UserList() {
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "id", headerName: "ID", width:230 },
     {
-      field: "user",
+      field: "name",
       headerName: "User",
       width: 200,
       renderCell: (params) => {
         return (
           <div className="userListUser">
-            <img className="userListImg" src={params.row.avatar} alt="" />
-            {params.row.username}
+            <img className="userListImg" src={"https://i.pravatar.cc/150?u=" + params.row.id} alt="" />
+            {params.row.name}
           </div>
         );
       },
     },
-    { field: "email", headerName: "Email", width: 200 },
+    { field: "email", headerName: "Email", width: 260 },
     {
-      field: "status",
-      headerName: "Status",
-      width: 120,
+      field: "ratingAverage",
+      headerName: "Rating",
+      width: 200,
+      renderCell: (params) => {
+        return (
+          <Rating name="read-only" value={params.row.ratingAverage} readOnly />
+        );
+      },
     },
     {
-      field: "transaction",
-      headerName: "Transaction Volume",
-      width: 160,
+      field: "city",
+      headerName: "City",
+      width: 120,
     },
     {
       field: "action",

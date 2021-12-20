@@ -18,7 +18,13 @@ import {
   Checkbox,
   Card,
   CardContent,
+  FilledInput,
+  InputAdornment,
+  IconButton,
+  FormControl,
+  InputLabel,
 } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 function Copyright(props) {
   return (
@@ -41,9 +47,27 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+  const [values, setValues] = React.useState({
+    password: "",
+    showPassword: false,
+  });
   const dispatch = useDispatch();
   const { check } = useSelector((state) => state.userReducer);
 
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -103,16 +127,35 @@ export default function SignIn() {
                       autoComplete="email"
                       autoFocus
                     />
-                    <TextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="current-password"
-                    />
+                    <FormControl sx={{ mt: 2 }} fullWidth variant="filled">
+                      <InputLabel htmlFor="filled-adornment-password">
+                        Password
+                      </InputLabel>
+                      <FilledInput
+                        id="filled-adornment-password"
+                        type={values.showPassword ? "text" : "password"}
+                        value={values.password}
+                        name="password"
+                        onChange={handleChange("password")}
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                              edge="end"
+                            >
+                              {values.showPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                      />
+                    </FormControl>
+
                     <FormControlLabel
                       control={<Checkbox value="remember" color="primary" />}
                       label="Remember me"

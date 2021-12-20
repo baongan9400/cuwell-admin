@@ -6,11 +6,11 @@ const userApi = {
     return axiosManagement.get(url);
   },
   getBestSellers: () => {
-    const url = "auth-service/admin/sell-users";
+    const url = "auth-service/admin/statistic/sell-users";
     return axiosManagement.get(url);
   },
   statisticUserByMonth: () => {
-    const url = "auth-service/users/statistic/user-created";
+    const url = "auth-service/admin/statistic/users-created";
     return axiosManagement.get(url);
   },
 };
