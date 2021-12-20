@@ -6,9 +6,13 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import MainLayout from "../../Layouts/MainLayout";
 import userApi from "../../api/user";
-import Rating from '@mui/material/Rating';
+import Rating from "@mui/material/Rating";
+import Box from "@mui/material/Box";
+import { SkeletonRow } from "components/loading/SkeletonRow";
 
 export default function UserList() {
+  const [isLoading, setLoading] = useState(false);
+
   const [data, setData] = useState([]);
   useEffect(() => {
     fetchListUser();
@@ -16,16 +20,20 @@ export default function UserList() {
 
   const fetchListUser = async () => {
     try {
+      setLoading(true);
       const response = await userApi.getAllUsers();
       if (response) {
         response.payload.map((item) => {
-          item['id'] = item.userId
-          item['city'] = item.address.city
+          item["id"] = item.userId;
+          item["city"] = item.address.city;
           return item;
-       })
+        });
+        setLoading(false);
+
         setData(response.payload);
       }
     } catch (error) {
+      setLoading(false);
       console.log("failed to fetch list user: ", error);
 
       // if failed to fetch, use dummy data
@@ -38,7 +46,7 @@ export default function UserList() {
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width:230 },
+    { field: "id", headerName: "ID", width: 230 },
     {
       field: "name",
       headerName: "User",
@@ -46,7 +54,11 @@ export default function UserList() {
       renderCell: (params) => {
         return (
           <div className="userListUser">
-            <img className="userListImg" src={"https://i.pravatar.cc/150?u=" + params.row.id} alt="" />
+            <img
+              className="userListImg"
+              src={"https://i.pravatar.cc/150?u=" + params.row.id}
+              alt=""
+            />
             {params.row.name}
           </div>
         );
@@ -91,13 +103,24 @@ export default function UserList() {
   return (
     <MainLayout>
       <div className="userList">
-        <DataGrid
-          rows={data}
-          disableSelectionOnClick
-          columns={columns}
-          pageSize={8}
-          checkboxSelection
-        />
+        {isLoading ? (
+          <Box sx={{ width: "80%" }}>
+            <SkeletonRow />
+            <SkeletonRow />
+            <SkeletonRow />
+            <SkeletonRow />
+            <SkeletonRow />
+            <SkeletonRow />
+          </Box>
+        ) : (
+          <DataGrid
+            rows={data}
+            disableSelectionOnClick
+            columns={columns}
+            pageSize={8}
+            checkboxSelection
+          />
+        )}
       </div>
     </MainLayout>
   );

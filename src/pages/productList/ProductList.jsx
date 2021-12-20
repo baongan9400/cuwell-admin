@@ -5,15 +5,19 @@ import { productRows } from "../../dummyData";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import MainLayout from "../../Layouts/MainLayout";
-import postApi from "api/post"
+import postApi from "api/post";
+import { SkeletonRow } from "components/loading/SkeletonRow";
+import { Box } from "@mui/material";
 export default function ProductList() {
-  const pageSize = 8;
+  const [isLoading, setLoading] = useState(false);
+
+  const pageSize = 10;
   const [data, setData] = useState([]);
   const params = {
     search: "",
     category: "",
     page: 1,
-    page_size: pageSize,
+    page_size: 1000,
   };
   useEffect(() => {
     fetchListPost(params);
@@ -21,11 +25,20 @@ export default function ProductList() {
 
   const fetchListPost = async (params) => {
     try {
+      setLoading(true);
+
       const response = await postApi.getSearchPostData(params);
       if (response) {
+        response.results.map((item) => {
+          item["status"] = item.status ? "Available" : "Block";
+          return item;
+        });
+        setLoading(false);
+
         setData(response.results);
       }
     } catch (error) {
+      setLoading(false);
       console.log("failed to fetch list user: ", error);
       setData(productRows);
     }
@@ -36,21 +49,27 @@ export default function ProductList() {
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "id", headerName: "ID", width: 100 },
     {
       field: "product",
       headerName: "Product",
-      width: 200,
+      width: 260,
       renderCell: (params) => {
         return (
           <div className="productListItem">
-            <img className="productListImg" src={params.row.img} alt="" />
-            {params.row.name}
+            <img
+              className="productListImg"
+              src={params.row.images[0].url}
+              alt=""
+            />
+            {params.row.title}
           </div>
         );
       },
     },
-    { field: "stock", headerName: "Stock", width: 200 },
+    { field: "total", headerName: "Total", width: 120 },
+    { field: "sell", headerName: "Sold", width: 120 },
+    { field: "stock", headerName: "Stock", width: 120 },
     {
       field: "status",
       headerName: "Status",
@@ -84,13 +103,24 @@ export default function ProductList() {
   return (
     <MainLayout>
       <div className="productList">
-        <DataGrid
-          rows={data}
-          disableSelectionOnClick
-          columns={columns}
-          pageSize={pageSize}
-          checkboxSelection
-        />
+        {isLoading ? (
+          <Box sx={{ width: "80%" }}>
+            <SkeletonRow />
+            <SkeletonRow />
+            <SkeletonRow />
+            <SkeletonRow />
+            <SkeletonRow />
+            <SkeletonRow />
+          </Box>
+        ) : (
+          <DataGrid
+            rows={data}
+            disableSelectionOnClick
+            columns={columns}
+            pageSize={pageSize}
+            checkboxSelection
+          />
+        )}
       </div>
     </MainLayout>
   );

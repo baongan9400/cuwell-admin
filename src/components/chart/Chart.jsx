@@ -42,6 +42,7 @@ export default function Chart({ title, data, dataKey, grid }) {
           style={{
             width: 40,
             height: 40,
+            marginBottom: 50,
           }}
         />
       ) : (
