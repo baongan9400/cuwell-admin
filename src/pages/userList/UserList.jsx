@@ -6,8 +6,13 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import MainLayout from "../../Layouts/MainLayout";
 import userApi from "../../api/user";
+import Rating from "@mui/material/Rating";
+import Box from "@mui/material/Box";
+import { SkeletonRow } from "components/loading/SkeletonRow";
 
 export default function UserList() {
+  const [isLoading, setLoading] = useState(false);
+
   const [data, setData] = useState([]);
   useEffect(() => {
     fetchListUser();
@@ -15,10 +20,20 @@ export default function UserList() {
 
   const fetchListUser = async () => {
     try {
+      setLoading(true);
       const response = await userApi.getAllUsers();
-      console.log(response);
-      if (response) setData(response);
+      if (response) {
+        response.payload.map((item) => {
+          item["id"] = item.userId;
+          item["city"] = item.address.city;
+          return item;
+        });
+        setLoading(false);
+
+        setData(response.payload);
+      }
     } catch (error) {
+      setLoading(false);
       console.log("failed to fetch list user: ", error);
 
       // if failed to fetch, use dummy data
@@ -31,30 +46,39 @@ export default function UserList() {
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "id", headerName: "ID", width: 230 },
     {
-      field: "user",
+      field: "name",
       headerName: "User",
       width: 200,
       renderCell: (params) => {
         return (
           <div className="userListUser">
-            <img className="userListImg" src={params.row.avatar} alt="" />
-            {params.row.username}
+            <img
+              className="userListImg"
+              src={"https://i.pravatar.cc/150?u=" + params.row.id}
+              alt=""
+            />
+            {params.row.name}
           </div>
         );
       },
     },
-    { field: "email", headerName: "Email", width: 200 },
+    { field: "email", headerName: "Email", width: 260 },
     {
-      field: "status",
-      headerName: "Status",
-      width: 120,
+      field: "ratingAverage",
+      headerName: "Rating",
+      width: 200,
+      renderCell: (params) => {
+        return (
+          <Rating name="read-only" value={params.row.ratingAverage} readOnly />
+        );
+      },
     },
     {
-      field: "transaction",
-      headerName: "Transaction Volume",
-      width: 160,
+      field: "city",
+      headerName: "City",
+      width: 120,
     },
     {
       field: "action",
@@ -79,13 +103,24 @@ export default function UserList() {
   return (
     <MainLayout>
       <div className="userList">
-        <DataGrid
-          rows={data}
-          disableSelectionOnClick
-          columns={columns}
-          pageSize={8}
-          checkboxSelection
-        />
+        {isLoading ? (
+          <Box sx={{ width: "80%" }}>
+            <SkeletonRow />
+            <SkeletonRow />
+            <SkeletonRow />
+            <SkeletonRow />
+            <SkeletonRow />
+            <SkeletonRow />
+          </Box>
+        ) : (
+          <DataGrid
+            rows={data}
+            disableSelectionOnClick
+            columns={columns}
+            pageSize={8}
+            checkboxSelection
+          />
+        )}
       </div>
     </MainLayout>
   );
