@@ -6,7 +6,7 @@ export const checkRole = (token) => {
   if (token != null) {
     const decodePayload = jwtDecode(token);
     if (!decodePayload.role.includes("Admin")) {
-      window.location.href = "/403";
+      pushToast("error", "Access to this page is restricted.");
       return false;
     } else {
       return true;

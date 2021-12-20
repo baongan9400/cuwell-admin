@@ -9,6 +9,7 @@ const categoryApi = {
     const data = {
       name,
     };
+    console.log(data);
     const url = `post-service/categories/`;
     return axiosManagement.post(url, data);
   },

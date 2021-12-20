@@ -43,7 +43,7 @@ export default function CategroyList(props) {
           <tr className="categoryItemTr">
             <td className="categoryItemUser">
               <img
-                src={require(`images/${item.id}.svg`).default}
+                src={require(`images/0.svg`).default}
                 alt=""
                 className="categoryItemImg"
               />

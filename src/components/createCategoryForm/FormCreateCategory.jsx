@@ -1,12 +1,23 @@
 import "./widgetSm.css";
 import { TextField, Button, Box } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import React from "react";
+import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-const FormCreateCategory = () => {
+import SaveIcon from "@mui/icons-material/Save";
+import LoadingButton from "@mui/lab/LoadingButton";
+
+const FormCreateCategory = (props) => {
+  const { fetchCreateCategory, isLoadingCreate } = props;
+  const [error, setError] = useState(false);
+
   const { handleSubmit, control } = useForm();
   const onSubmit = (data) => {
-    console.log(data.name);
+    if (data !== undefined && data.name !== undefined && data.name !== "") {
+      setError(false);
+      fetchCreateCategory(data);
+    } else {
+      setError(true);
+    }
   };
 
   return (
@@ -24,18 +35,32 @@ const FormCreateCategory = () => {
                 label={"Name"}
                 fullWidth
                 variant="filled"
+                helperText={error === true ? "Required!" : ""}
+                error={error}
               />
             </Box>
           )}
         />
-        <Button
-          sx={{ m: 3 }}
-          onClick={handleSubmit(onSubmit)}
-          variant="contained"
-          endIcon={<AddIcon />}
-        >
-          Create
-        </Button>
+        {isLoadingCreate ? (
+          <LoadingButton
+            sx={{ m: 3, pl: 3, pr:3}}
+            loading
+            loadingPosition="start"
+            startIcon={<SaveIcon />}
+            variant="outlined"
+          >
+            SAVE
+          </LoadingButton>
+        ) : (
+          <Button
+            sx={{ m: 3 }}
+            onClick={handleSubmit(onSubmit)}
+            variant="contained"
+            endIcon={<AddIcon />}
+          >
+            Create
+          </Button>
+        )}
       </form>
     </div>
   );

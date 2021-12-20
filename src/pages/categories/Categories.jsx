@@ -6,8 +6,6 @@ import CategroyList from "components/categoryList/CategroyList";
 import categoryApi from "api/category/categoryApi";
 import React, { useEffect, useState } from "react";
 
-// import PropTypes from "prop-types";
-
 export default function Categories() {
   const [categories, setCategories] = useState([]);
   const [chart, setChart] = useState([]);
@@ -55,13 +53,13 @@ export default function Categories() {
   useEffect(() => {
     fetchCategories();
     fetchStatisticCategories();
-  }, []);
+  }, [isLoadingCreate]);
 
   return (
     <MainLayout>
       <div className="categories">
         <div className="homeWidgets">
-          <FormCreateCategory onSubmit={fetchCreateCategory} />
+          <FormCreateCategory fetchCreateCategory={fetchCreateCategory} isLoadingCreate={isLoadingCreate} />
           <CategroyList categories={categories} isLoading={isLoading} />
         </div>
         <BarChartCustom data={chart} isLoadingChart={isLoadingChart} />
