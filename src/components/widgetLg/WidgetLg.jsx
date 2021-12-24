@@ -1,12 +1,29 @@
+import transactionApi from "api/transactionApi";
+import { useEffect, useState } from "react";
 import "./widgetLg.css";
 
 export default function WidgetLg() {
+  const [topTransactions, setTopTransactions] = useState();
+
+  useEffect(() => {
+    fetchTopTransactions();
+  }, []);
+
+  const fetchTopTransactions = async () => {
+    try {
+      const res = await transactionApi.getTopTransactions();
+      if (res) console.log(res);
+    } catch (error) {
+      console.log("Failed to fetch top transactions with error: ", error);
+    }
+  };
+
   const Button = ({ type }) => {
     return <button className={"widgetLgButton " + type}>{type}</button>;
   };
   return (
     <div className="widgetLg">
-      <h3 className="widgetLgTitle">Latest transactions</h3>
+      <h3 className="widgetLgTitle">Top transactions</h3>
       <table className="widgetLgTable">
         <tr className="widgetLgTr">
           <th className="widgetLgTh">Customer</th>
