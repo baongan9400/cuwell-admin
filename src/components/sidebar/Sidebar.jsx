@@ -34,14 +34,14 @@ export default function Sidebar() {
                 Home
               </NavLink>
             </li>
-            <li className="sidebarListItem">
+            {/* <li className="sidebarListItem">
               <Timeline className="sidebarIcon" />
               Analytics
             </li>
             <li className="sidebarListItem">
               <TrendingUp className="sidebarIcon" />
               Sales
-            </li>
+            </li> */}
           </ul>
         </div>
         <div className="sidebarMenu">
@@ -70,10 +70,10 @@ export default function Sidebar() {
                 Products
               </NavLink>
             </li>
-            <li className="sidebarListItem">
+            {/* <li className="sidebarListItem">
               <AttachMoney className="sidebarIcon" />
               Transactions
-            </li>
+            </li> */}
 
             {/* <li className="">
               <NavLink

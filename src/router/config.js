@@ -50,6 +50,12 @@ export const routeConfig = [
     component: Product,
   },
   {
+    path: `/user/:userId`,
+    isPrivate: true,
+    exact: true,
+    component: User,
+  },
+  {
     path: `/reports`,
     isPrivate: true,
     exact: true,
