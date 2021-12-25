@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -11,6 +11,11 @@ import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import { Link } from "react-router-dom";
 import "./DialogReport.css";
+import BlockIcon from "@mui/icons-material/Block";
+import SaveIcon from "@mui/icons-material/Save";
+import LoadingButton from "@mui/lab/LoadingButton";
+import postApi from "api/post";
+import { pushToast } from "components/Toast";
 
 const styles = (theme) => ({
   root: {
@@ -75,10 +80,27 @@ const DialogActions = withStyles((theme) => ({
 
 function DialogSubmit(props) {
   const { open, onClickClose, report } = props;
+  console.log(report);
   const classAvatar = useStyles();
+  const [isLoadingCreate, setLoadingCreate] = useState(false);
 
   const handleClose = () => {
     onClickClose();
+  };
+  const fetchCreateCategory = async (params) => {
+    try {
+      setLoadingCreate(true);
+      const res = await postApi.blockPost(params);
+      if (res) {
+        setLoadingCreate(false);
+        pushToast("success", "Block this post successfully.");
+      }
+    } catch (error) {
+      pushToast("error", "Block this post failed.Try again !");
+    }
+  };
+  const onSubmit = () => {
+    fetchCreateCategory(report.post);
   };
   return (
     <div>
@@ -89,7 +111,7 @@ function DialogSubmit(props) {
         style={{ overflow: "hidden", height: "400px", marginTop: "100px" }}
       >
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          <div style={{ textTransform: "capitalize" }}>Type: {report.type}</div>
+          <div style={{ textTransform: "capitalize" }}>Report violation</div>
         </DialogTitle>
         <DialogContent dividers>
           <Typography
@@ -101,12 +123,18 @@ function DialogSubmit(props) {
             }}
           >
             <Avatar
-              alt={report.user && report.user.name}
-              src={report.user && report.user.avatar}
+              alt={report.user}
+              src={"https://i.pravatar.cc/150?u=" + report.user}
             />
-            <h5 style={{ marginLeft: "20px" }}>
-              {report.user && report.user.name}
-            </h5>
+            <h5 style={{ marginLeft: "20px" }}>User ID: {report.user}</h5>
+          </Typography>
+          <Typography gutterBottom>
+            <h6 style={{ marginBottom: "10px" }}>Create At: </h6>
+            {report.created_at}
+          </Typography>
+          <Typography gutterBottom>
+            <h6 style={{ marginBottom: "10px" }}>Reported Post ID: </h6>
+            {report.post}
           </Typography>
           <Typography gutterBottom>
             <h6 style={{ marginBottom: "10px" }}>Description: </h6>
@@ -117,13 +145,33 @@ function DialogSubmit(props) {
           <Button onClick={handleClose}>Close</Button>
           <Button color="secondary">
             <Link
-              to={report.post && `./management/product/${report.post.id}`}
+              to={report.post && `./management/product/${report.post}`}
               style={{ textDecoration: "none", color: "inherit" }}
             >
               Go to post
             </Link>
           </Button>
         </DialogActions>
+        {isLoadingCreate ? (
+          <LoadingButton
+            sx={{ m: 3, pl: 3, pr: 3 }}
+            loading
+            loadingPosition="start"
+            startIcon={<SaveIcon />}
+            variant="outlined"
+          >
+            BLOCK...
+          </LoadingButton>
+        ) : (
+          <Button
+            sx={{ m: 3 }}
+            onClick={onSubmit}
+            variant="contained"
+            startIcon={<BlockIcon />}
+          >
+            BLOCK
+          </Button>
+        )}
       </Dialog>
     </div>
   );

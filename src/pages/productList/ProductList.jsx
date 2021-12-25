@@ -88,12 +88,12 @@ export default function ProductList() {
         return (
           <>
             <Link to={"/product/" + params.row.id}>
-              <button className="productListEdit">Edit</button>
+              <button className="productListEdit">View</button>
             </Link>
-            <DeleteOutline
+            {/* <DeleteOutline
               className="productListDelete"
               onClick={() => handleDelete(params.row.id)}
-            />
+            /> */}
           </>
         );
       },
