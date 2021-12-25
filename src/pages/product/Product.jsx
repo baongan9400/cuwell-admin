@@ -85,7 +85,7 @@ export default function Product() {
                     <div className="productInfoItem">
                       <h5 className="productInfoKey">blocked:</h5>
                       <span className="productInfoValue">
-                        {data.is_blocked ? "true" : "false"}
+                        {data?.status === 2 ? "blocked" : "active"}
                       </span>
                     </div>
                     <div className="productInfoItem">
