@@ -75,7 +75,7 @@ export default function Sidebar() {
               Transactions
             </li>
 
-            <li className="">
+            {/* <li className="">
               <NavLink
                 exact
                 activeClassName="sidebarListItemActived"
@@ -85,7 +85,7 @@ export default function Sidebar() {
                 <BarChart className="sidebarIcon" />
                 Reports
               </NavLink>
-            </li>
+            </li> */}
 
             <li className="">
               <NavLink

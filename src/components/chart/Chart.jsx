@@ -46,8 +46,8 @@ export default function Chart({ title, data, dataKey, grid }) {
           }}
         />
       ) : (
-        <ResponsiveContainer width="100%" aspect={4 / 1}>
-          <LineChart data={chart}>
+        <ResponsiveContainer width="99%" height={300}>
+          <LineChart data={chart} width={"100%"} height={"100%"}>
             <XAxis dataKey="name" stroke="#5550bd" />
             <Line type="monotone" dataKey={dataKey} stroke="#5550bd" />
             <Tooltip />
